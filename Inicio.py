@@ -1,45 +1,55 @@
-
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QPushButton, QMessageBox
+from PyQt5.QtCore import Qt
 
-class ButtonExample(QWidget):
+class VentanaInicioSesion(QWidget):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Iniciar Sesión")
+        self.setGeometry(100, 100, 400, 200)
 
-        self.init_ui()
-
-    def init_ui(self):  # crea un objeto de diseño vertical
         layout = QVBoxLayout()
 
-        # Crear 2 botones a usar
-        self.btn1 = QPushButton('Foco Sala Apagado')
-        self.btn2 = QPushButton('Foco Cuarto Apagado')
+        # Etiqueta y campo de texto para el nombre de usuario
+        self.label_usuario = QLabel("Usuario:")
+        self.input_usuario = QLineEdit()
+        layout.addWidget(self.label_usuario)
+        layout.addWidget(self.input_usuario)
 
-        # Conectar botones a funciones
-        self.btn1.clicked.connect(lambda: self.toggle_foco(self.btn1)) #lambda como señar anonima
-        self.btn2.clicked.connect(lambda: self.toggle_foco(self.btn2)) #espera una función que será ejecutado cuando se haga clic en el botón
+        # Etiqueta y campo de texto para la contraseña
+        self.label_password = QLabel("Contraseña:")
+        self.input_password = QLineEdit()
+        self.input_password.setEchoMode(QLineEdit.Password)  # Ocultar texto de la contraseña
+        layout.addWidget(self.label_password)
+        layout.addWidget(self.input_password)
 
-        # Agregar botones al diseño
-        layout.addWidget(self.btn1)
-        layout.addWidget(self.btn2)
+        # Botón para iniciar sesión
+        boton_iniciar_sesion = QPushButton("Iniciar Sesión")
+        boton_iniciar_sesion.clicked.connect(self.iniciar_sesion)
+        layout.addWidget(boton_iniciar_sesion)
 
-        # Configurar la ventana principal
+        # Botón para crear un nuevo usuario
+        boton_crear_usuario = QPushButton("Crear Usuario")
+        boton_crear_usuario.clicked.connect(self.crear_usuario)
+        layout.addWidget(boton_crear_usuario)
+
         self.setLayout(layout)
-        self.setGeometry(300, 300, 300, 200)
-        self.setWindowTitle('Control de Focos')
 
-        # Mostrar la ventana
-        self.show()
+    def iniciar_sesion(self):
+        usuario = self.input_usuario.text().strip()
+        contrasena = self.input_password.text().strip()
 
-    def toggle_foco(self, button):  #un metodo de clase que alterna entre foco apagado y foco prendido
-        if button.text() == 'Foco Sala Apagado':
-            button.setText('Foco Cuarto Encendido')
-            print('1')  # Representa foco encendido
+        # Aquí puedes agregar tu lógica de autenticación
+        if usuario == "admin" and contrasena == "admin123":
+            QMessageBox.information(self, "Inicio de Sesión", "¡Inicio de sesión exitoso!")
         else:
-            button.setText('Foco Sala Apagado')
-            print('0')  # Representa foco apagado
+            QMessageBox.warning(self, "Inicio de Sesión", "Usuario o contraseña incorrectos.")
 
-if __name__ == '__main__':
+    def crear_usuario(self):
+        QMessageBox.information(self, "Crear Usuario", "Función para crear usuario aún no implementada.")
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
-    ex = ButtonExample()
+    ventana_inicio = VentanaInicioSesion()
+    ventana_inicio.show()
     sys.exit(app.exec_())
