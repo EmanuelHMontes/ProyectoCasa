@@ -66,9 +66,12 @@ class VentanaOpciones(QWidget):
         super().__init__()
         self.setWindowTitle(f"Casa Inteligente - {habitacion}")
         self.setGeometry(200, 200, 400, 300)
+        
+        #Venta Secundaria 
+        self.setStyleSheet("background-color: #008B8B; color: black;")
 
         self.habitacion = habitacion
-        self.estado_foco = "apagado"  # Estado inicial del foco
+       
         self.estado_puerta = "cerrada"  # Estado inicial de la puerta
         self.estado_camara = "apagada"  # Estado inicial de la cámara
 
@@ -80,12 +83,12 @@ class VentanaOpciones(QWidget):
         layout.addWidget(label_habitacion)
 
         # Botones de opciones
-        self.boton_foco = QPushButton(f"Foco {self.estado_foco}")
+        
         self.boton_puerta = QPushButton(f"Puerta {self.estado_puerta}")
         self.boton_camara = QPushButton(f"Cámara {self.estado_camara}")
 
         # Conectar botones a las funciones correspondientes
-        self.boton_foco.clicked.connect(self.cambiar_estado_foco)
+        
         self.boton_puerta.clicked.connect(self.cambiar_estado_puerta)
         self.boton_camara.clicked.connect(self.cambiar_estado_camara)
 
@@ -94,7 +97,7 @@ class VentanaOpciones(QWidget):
         boton_regreso.clicked.connect(self.regresar_a_ventana_principal)
 
         # Agregar widgets al layout
-        layout.addWidget(self.boton_foco)
+        
         layout.addWidget(self.boton_puerta)
         layout.addWidget(self.boton_camara)
         layout.addWidget(boton_regreso)
@@ -105,12 +108,7 @@ class VentanaOpciones(QWidget):
 
         self.setLayout(layout)
 
-    def cambiar_estado_foco(self):
-        if self.estado_foco == "apagado":
-            self.estado_foco = "encendido"
-        else:
-            self.estado_foco = "apagado"
-        self.boton_foco.setText(f"Foco {self.estado_foco}")
+   
 
     def cambiar_estado_puerta(self):
         if self.estado_puerta == "cerrada":
@@ -136,6 +134,9 @@ class VentanaPrincipal(QWidget):
         super().__init__()
         self.setWindowTitle("Casa Inteligente - Ventana Principal")
         self.setGeometry(100, 100, 400, 300)
+        #CAMBIAR EL COLOR DE LA VENTANA PRINCIPAL
+        self.setStyleSheet("background-color: #008B8B; color: black;")
+
 
         layout = QVBoxLayout()
 
@@ -163,6 +164,8 @@ class VentanaPrincipal(QWidget):
         self.segunda_ventana = VentanaOpciones(habitacion)
         self.segunda_ventana.show()
         self.hide()  # Ocultar la ventana principal al abrir la segunda ventana
+        
+
 
 
 if __name__ == "__main__":
