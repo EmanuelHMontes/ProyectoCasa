@@ -1,5 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QMessageBox, QPushButton, QLabel, QVBoxLayout, QWidget, QSlider, QHBoxLayout
+from PyQt5.QtGui import QIcon
+from pathlib import Path
+
+def absPath(nombre):
+    return str( Path(__file__).parent.absolute() / nombre)
 
 
 class ControlDeIluminacion(QMainWindow):
@@ -67,7 +72,11 @@ class VentanaOpciones(QWidget):
         self.setWindowTitle(f"Casa Inteligente - {habitacion}")
         self.setGeometry(200, 200, 400, 300)
         
-        #Venta Secundaria 
+        #Agregar Icono
+        Icono = QIcon(absPath("casa.png"))
+        self.setWindowIcon(Icono)
+
+        #Color de Venta Secundaria 
         self.setStyleSheet("background-color: #008B8B; color: black;")
 
         self.habitacion = habitacion
@@ -134,9 +143,13 @@ class VentanaPrincipal(QWidget):
         super().__init__()
         self.setWindowTitle("Casa Inteligente - Ventana Principal")
         self.setGeometry(100, 100, 400, 300)
+
         #CAMBIAR EL COLOR DE LA VENTANA PRINCIPAL
         self.setStyleSheet("background-color: #008B8B; color: black;")
 
+        #Agregar Icono
+        Icono = QIcon(absPath("casa.png"))
+        self.setWindowIcon(Icono)
 
         layout = QVBoxLayout()
 
